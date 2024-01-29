@@ -3,7 +3,6 @@ import icon2 from '../../assets/images/icon-money.png'
 import icon3 from '../../assets/images/icon-security.png'
 
 function Home() {
-    document.title = "Argent Bank - Home Page"
     return (
         <main>
             <div className="hero">
