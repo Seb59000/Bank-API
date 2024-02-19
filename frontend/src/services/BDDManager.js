@@ -9,18 +9,18 @@ const urlApi = 'http://localhost:3001/api/v1/';
  * @param {*} lastName 
  * @returns 
  */
-export const SignInApi = async (email, password, firstName, lastName) => {
-    try {
-        const response = await axios.post('http://localhost:3001/api/v1/user/signup', {
-            email: "test@mail.com",
-            password: "1234",
-            firstName: "john",
-            lastName: "doe"
-        });
-    } catch (error) {
-        return '400';
-    }
-}
+// export const SignInApi = async (email, password, firstName, lastName) => {
+//     try {
+//         const response = await axios.post('http://localhost:3001/api/v1/user/signup', {
+//             email: "test@mail.com",
+//             password: "1234",
+//             firstName: "john",
+//             lastName: "doe"
+//         });
+//     } catch (error) {
+//         return '400';
+//     }
+// }
 
 /**
  * connection à l'api

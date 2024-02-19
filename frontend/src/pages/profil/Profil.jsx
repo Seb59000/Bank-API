@@ -1,14 +1,17 @@
-import { useStore } from "react-redux";
+import { useStore, useSelector } from "react-redux";
 import React, { useState } from 'react';
 import { UpdateInfos } from '../../services/BDDManager'
 import { Navigate } from 'react-router-dom';
 import AccountInfoBar from '../../components/accountInfoBar/AccountInfoBar'
+import { getToken, getFirstName, getLasttName } from '../../services/selectors'
 
 function Profil() {
     const store = useStore();
     const [showInputs, setShowInputs] = useState(false);
     const [newFirstName, setNewFirstName] = useState('');
     const [newLastName, setNewLastName] = useState('');
+    const firstName = useSelector(getFirstName);
+    const lastName = useSelector((getLasttName));
 
     if (store.getState().token === '') {
         return <Navigate to='/login' />;
@@ -26,7 +29,7 @@ function Profil() {
         event.preventDefault();
 
         ///je modifie en BDD
-        UpdateInfos(store.getState().token, newFirstName, newLastName)
+        UpdateInfos(getToken(store.getState()), newFirstName, newLastName);
 
         ///je modifie state
         store.dispatch({ type: 'MODIFIER_PRENOM', payload: newFirstName });
@@ -38,12 +41,12 @@ function Profil() {
     return (
         <main className="main bg-dark padding-main">
             <div className="header">
-                <h1>Welcome back<br /><span id="firstName">{store.getState().firstName}</span> <span id="lastName">{store.getState().lastName}!</span></h1>
+                <h1>Welcome back<br /><span id="firstName">{firstName}</span> <span id="lastName">{lastName}</span><span>!</span></h1>
                 {showInputs ? (
                     <form onSubmit={ChangeName} id="update-modale">
                         <div>
-                            <input type="text" id="newFirstName" className="input-update-field" name="newFirstName" placeholder={store.getState().firstName} onChange={(e) => setNewFirstName(e.target.value)} required />
-                            <input type="text" id="newLastName" className="input-update-field" name="newLastName" placeholder={store.getState().lastName} onChange={(e) => setNewLastName(e.target.value)} required />
+                            <input type="text" id="newFirstName" className="input-update-field" name="newFirstName" placeholder={firstName} onChange={(e) => setNewFirstName(e.target.value)} required />
+                            <input type="text" id="newLastName" className="input-update-field" name="newLastName" placeholder={lastName} onChange={(e) => setNewLastName(e.target.value)} required />
                         </div>
                         <div>
                             <button type="submit" className="btn-update-field">Save</button>

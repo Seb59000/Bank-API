@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { LoginApi, GetProfile } from '../../services/BDDManager';
 import { useStore } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getToken } from '../../services/selectors'
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -18,7 +19,7 @@ function Login() {
         } else {
             ///je modifie state pour le token
             store.dispatch({ type: 'MODIFIER_TOKEN', payload: token });
-            const profile = await GetProfile(store.getState().token);
+            const profile = await GetProfile(getToken(store.getState()));
 
             ///je modifie state pour firstName et lastName
             store.dispatch({ type: 'MODIFIER_PRENOM', payload: profile.firstName });
